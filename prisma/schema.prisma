@@ -10,4 +10,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
+  words Word[]
+}
+
+model Language {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  words Word[]
+}
+
+model Word {
+  id             Int      @id @default(autoincrement())
+  text           String
+  nativeText     String?
+  classification String?
+  // user relationship
+  userId         Int
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // language relationship
+  languageId     Int
+  language       Language @relation(fields: [languageId], references: [id], onDelete: Cascade)
+}
