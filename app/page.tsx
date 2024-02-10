@@ -1,10 +1,14 @@
-import Header from "./components/header";
+import LastWords from "@/components/last-words";
+import PostForm from "@/components/post-form";
 
-export default function Home() {
+export default async function Home() {
+
   return (
     <>
-      <Header />
-      <main className="flex flex-col gap-4">
+      <main className="my-4">
+        {/* @ts-expect-error */}
+        <LastWords />
+        <PostForm />
       </main>
     </>
   );

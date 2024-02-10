@@ -1,12 +1,10 @@
+import Header from "@/components/header";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Wordyling",
-  description: "Keep your language learning sharp!",
+  description: "Keep your language learning burning",
 };
 
 export default function RootLayout({
@@ -17,8 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <main className="max-w-7xl m-auto p-4">
-        {children}
+        <main className="max-w-7xl sm:px-20 m-auto p-4">
+          <Header />
+          {children}
         </main>
       </body>
     </html>
