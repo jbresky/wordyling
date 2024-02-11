@@ -10,16 +10,13 @@ import {
 
 const Filters = () => {
     return (
-        <section className="flex gap-4 items-center">
-            <Button className="w-1/5 text-black border-2 rounded-lg shadow-none border-slate-300 hover:bg-[#f8f8f8] bg-white">
-                All
-            </Button>
-
-            <Select>
-                <SelectTrigger className="w-1/5 border-2 rounded-lg border-slate-300 font-medium">
-                    <SelectValue placeholder="Filter by category" />
+        <section className="flex gap-4">
+            <Select> 
+                <SelectTrigger className="sm:w-[150px] border-2 rounded-lg border-slate-300 font-medium focus:bg-[#fcefef]">
+                    <SelectValue placeholder="Filter" />
                 </SelectTrigger>
                 <SelectContent>
+                    <SelectItem value="All">All</SelectItem> 
                     <SelectItem value="Noun">Noun</SelectItem>
                     <SelectItem value="Verb">Verb</SelectItem>
                     <SelectItem value="Adjective">Adjective</SelectItem>
