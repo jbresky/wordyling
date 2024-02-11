@@ -10,6 +10,12 @@ type CreateWord = z.infer<typeof formSchema>
 export const createWord = async (values: CreateWord) => {
     const capsText = values.word;
     const capitalizedWord = capsText.charAt(0).toUpperCase() + capsText.slice(1);
+
+    const wordAlreadySaved = await prisma.word.findFirst({
+        where: { text: capitalizedWord }
+    })
+
+    if(wordAlreadySaved) { return { error: 'Word already saved' } }
     
     const wordNew = await prisma.word.create({
         data: {
