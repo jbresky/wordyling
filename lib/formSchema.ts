@@ -22,6 +22,9 @@ export const formSchema = z.object({
     native: z.string().max(20, {
         message: "Word cannot contain more than 20 words"
     }),
+    pronunciation: z.string().max(20, {
+        message: "Word cannot contain more than 20 words"
+    }),
     category: z.enum(categories, {
         errorMap: () => ({ message: "Please select a category" })
     })
