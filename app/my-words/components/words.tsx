@@ -7,12 +7,13 @@ import {
 const Words = ({ words }: { words: Word[] }) => {
     return (
         <>
-            <h3 className="text-gray-700">Hover to see its translation and category</h3>
-            <section className="grid grid-cols-6 gap-5 mt-1">
+            <h3 className="text-gray-700 max-sm:text-sm">{words.length < 1 ? 'You have no words saved yet!' : 'Hover to see its translation and category'}</h3>
+            <section className="flex flex-wrap justify-center md:grid grid-cols-7 gap-6">
+                   
                 {words?.map((word: Word) => (
                     <HoverCard key={word.id}>
                         <HoverCardTrigger>
-                            <p key={word.id} className="text-center text-sm cursor-pointer py-1 font-medium px-6 bg-indigo-100/50 rounded-lg"
+                            <p key={word.id} className="text-center text-sm cursor-pointer w-[90px] py-1 font-medium border-b border-black"
                             >
                                 {word.text}
                             </p>
