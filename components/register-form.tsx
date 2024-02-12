@@ -10,15 +10,17 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { userSchema } from "@/lib/userFormSchema"
+import { userRegistrationSchema } from "@/lib/userFormSchema"
 import { createUser } from "@/server/actions/create-user"
+import { useRouter } from "next/navigation"
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from "react-hook-form"
 import z from "zod"
 
 export default function RegisterForm() {
-    const form = useForm<z.infer<typeof userSchema>>({
-        resolver: zodResolver(userSchema),
+    const router = useRouter()
+    const form = useForm<z.infer<typeof userRegistrationSchema>>({
+        resolver: zodResolver(userRegistrationSchema),
         defaultValues: {
             email: "",
             username: "",
@@ -26,8 +28,9 @@ export default function RegisterForm() {
         }
     })
 
-    function onSubmit(values: z.infer<typeof userSchema>) {
-        createUser(values)
+    async function onSubmit(values: z.infer<typeof userRegistrationSchema>) {
+        await createUser(values)
+        router.push('/login')
     }
 
     return (
@@ -46,6 +49,7 @@ export default function RegisterForm() {
                         </FormItem>
                     )}
                 />
+
                 <FormField
                     control={form.control}
                     name="username"
