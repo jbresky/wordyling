@@ -1,6 +1,7 @@
 interface Word {
     id: number
     text: string
-    nativeText: string
-    classification: string
+    nativeText: string | null
+    pronunciation?: string
+    classification: string | null
 }
