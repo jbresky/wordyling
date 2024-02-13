@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { GiAbstract013 } from "react-icons/gi";
-import Flags from "./flags";
 import Logout from "./forms/logout-form";
 
 const Header = async ({ session }: { session?: any }) => {
@@ -19,7 +18,6 @@ const Header = async ({ session }: { session?: any }) => {
                             My words
                         </Link>
                         <Logout />
-                        <Flags />
                     </>
                 ) : (
                     <>

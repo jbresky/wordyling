@@ -24,8 +24,9 @@ import { useForm } from "react-hook-form"
 import { useState } from "react"
 import z from "zod"
 import { AnimatePresence, motion } from 'framer-motion'
+import LanguageFilter from "../language-filter"
 
-export default function PostForm() {
+export default function PostForm({ languageId }: { languageId: number }) {
     const [isShown, setShow] = useState(false)
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -34,12 +35,13 @@ export default function PostForm() {
             word: "",
             native: "",
             pronunciation: "",
-            category: "Noun"
+            category: "Noun",
+            language: languageId
         }
     })
 
     const categoriesOptions = Object.entries(mappedCategories).map(([key, value]) => (
-        <SelectItem value={key}>{value}</SelectItem>
+        <SelectItem value={key} key={key}>{value}</SelectItem>
     ))
 
     function onSubmit(values: z.infer<typeof formSchema>) {
@@ -49,8 +51,10 @@ export default function PostForm() {
 
     return (
         <section className="flex flex-col gap-8 mt-12 mb-8">
+            <div className="flex items-center justify-between">
             <Button onClick={() => setShow(!isShown)} className="w-fit text-black border-2 rounded-lg border-slate-300 hover:bg-[#f8f8f8] bg-white">Add new</Button>
-
+            <LanguageFilter />
+            </div>
             {isShown ? (
                 <AnimatePresence presenceAffectsLayout>
                     <motion.div
@@ -68,7 +72,7 @@ export default function PostForm() {
                                         <FormItem>
                                             <FormLabel>Word</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="Billigt" {...field} />
+                                                <Input placeholder="Bror" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -81,13 +85,13 @@ export default function PostForm() {
                                         <FormItem>
                                             <FormLabel>Native word</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="Cheap" {...field} />
+                                                <Input placeholder="Brother" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
                                     )}
                                 />
-                                 <FormField
+                                <FormField
                                     control={form.control}
                                     name="pronunciation"
                                     render={({ field }) => (
@@ -116,12 +120,12 @@ export default function PostForm() {
                                                     {categoriesOptions}
                                                 </SelectContent>
                                             </Select>
-
                                             <FormMessage />
                                         </FormItem>
                                     )}
                                 />
-                                <Button>Submit</Button>
+                                 
+                                <Button type="submit">Submit</Button>
                             </form>
                         </Form>
                     </motion.div>
