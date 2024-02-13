@@ -1,9 +1,9 @@
 'use server'
 
 import { formSchema } from "@/lib/formSchema"
-import prisma from "@/lib/prisma"
 import { revalidatePath } from "next/cache"
 import z from "zod"
+import prisma from '@/lib/prisma'
 import { getSession } from "../session"
 
 type CreateWord = z.infer<typeof formSchema>
@@ -14,19 +14,23 @@ export const createWord = async (values: CreateWord) => {
     const capsText = values.word;
     const capitalizedWord = capsText.charAt(0).toUpperCase() + capsText.slice(1);
 
+    const capsNative = values.native;
+    const capitalizedNativeWord = capsNative.charAt(0).toUpperCase() + capsNative.slice(1);
+
     const wordAlreadySaved = await prisma.word.findFirst({
-        where: { text: capitalizedWord }
+        where: { word: capitalizedWord }
     })
 
     if (wordAlreadySaved) { return { error: 'Word already saved' } }
 
     const wordNew = await prisma.word.create({
         data: {
-            text: capitalizedWord,
-            nativeText: values.native,
-            classification: values.category,
-            userId: session.user.id,
-            languageId: 1
+            word: capitalizedWord,
+            nativeWord: capitalizedNativeWord,
+            pronunciation: values.pronunciation,
+            category: values.category,
+            user_id: session.user.id,
+            language_id: 1
         }
     })
     revalidatePath('/')
@@ -41,34 +45,45 @@ export const fetchAllWords = async () => {
 
     const data = await prisma.word.findMany({
         where: {
-            userId: session.user.id
+            user_id: session.user.id
         }
     })
+
     const sortedData = data.sort((a, b) => {
         // Compare lengths first
-        if (a.text.length !== b.text.length) {
-            return a.text.length - b.text.length; // Sort by length in ascending order
+        if (a.word.length !== b.word.length) {
+            return a.word.length - b.word.length; // Sort by length in ascending order
         } else {
             // If lengths are the same, sort alphabetically
-            return a.text.localeCompare(b.text); // Sort alphabetically
+            return a.word.localeCompare(b.word); // Sort alphabetically
         }
     });
 
     return sortedData;
 }
 
-export const fetchLastWords = async () => {
+export const fetchLastWords = async (): Promise<Word[]> => {
     const session = await getSession()
 
     const data = await prisma.word.findMany({
         where: {
-            userId: session.user.id,
+            user_id: session.user.id,
         },
         take: 10,
         orderBy: {
-            // Migration needed (tampstamp field)
+            createdAt: 'desc'
         }
     })
 
     return data
+}
+
+export const deleteWord = async ({ id }: { id: number }) => {
+    try {
+        await prisma.word.delete({ where: { id } })
+        revalidatePath('/my-words')
+        return { success: "Product deleted" }
+    } catch (error) {
+        return { error: "Something went wrong" }
+    }
 }
