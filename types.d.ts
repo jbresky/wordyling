@@ -1,7 +1,10 @@
 interface Word {
     id: number
-    text: string
-    nativeText: string | null
-    pronunciation?: string
-    classification: string | null
+    word: string
+    nativeWord: string
+    category: string
+    pronunciation: string | null
+    user_id: number
+    createdAt: Date
+    language_id: number
 }
