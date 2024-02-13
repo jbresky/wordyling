@@ -22,7 +22,7 @@ export default async function MyWords({
     <div className="my-8 flex flex-col gap-4">
       <Filters />
       <Suspense key={query + 1} fallback={<LastWordsSkeleton />}>
-        {/* @ts-expect-error */}
+        {/* @ts-expect-error Async Server Component */}
         <Words language={language ? language : 1} query={searchParams?.query} filter={searchParams?.filter} />
       </Suspense>
     </div>

@@ -19,7 +19,7 @@ export default async function Home({
     <>
       <main className="my-4 space-y-8">
         <Suspense fallback={'Loading...'} >
-          {/* @ts-expect-error */}
+          {/* @ts-expect-error Async Server Component */}
           <LastWords language={language || 1} />
         </Suspense>
         <PostForm languageId={language || 1} />
