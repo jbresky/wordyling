@@ -29,14 +29,17 @@ model Language {
 }
 
 model Word {
-  id             Int      @id @default(autoincrement())
-  text           String
-  nativeText     String?
-  classification String?
+  id            Int      @id @default(autoincrement())
+  word          String
+  nativeWord    String
+  category      String
+  pronunciation String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
   // user relationship
-  userId         Int
-  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user_id        Int
+  user          User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
   // language relationship
-  languageId     Int
-  language       Language @relation(fields: [languageId], references: [id], onDelete: Cascade)
+  language_id    Int
+  language      Language @relation(fields: [language_id], references: [id], onDelete: Cascade)
 }
