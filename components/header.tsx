@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { GiAbstract013 } from "react-icons/gi";
-import Logout from "./logout/logout-form";
+import Flags from "./flags";
+import Logout from "./forms/logout-form";
 
 const Header = async ({ session }: { session?: any }) => {
 
@@ -19,12 +19,12 @@ const Header = async ({ session }: { session?: any }) => {
                             My words
                         </Link>
                         <Logout />
-                        <Image alt="belgium" width={50} height={50} src="https://flagsapi.com/DK/shiny/64.png" />
+                        <Flags />
                     </>
                 ) : (
                     <>
-                        <Link href='/login'>Login</Link>
-                        <Link href='/register'>Register</Link>
+                        <Link className="hover:underline" href='/login'>Login</Link>
+                        <Link className="hover:underline" href='/register'>Register</Link>
                     </>
                 )}
             </ul>
