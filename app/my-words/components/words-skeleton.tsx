@@ -1,6 +1,6 @@
-import { Skeleton } from "../ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
-const LastWordsSkeleton = () => {
+const WordsSkeleton = () => {
     return (
         <div className="grid grid-cols-7 gap-6 mt-8">
             {/* @ts-ignore */}
@@ -12,4 +12,4 @@ const LastWordsSkeleton = () => {
     );
 }
 
-export default LastWordsSkeleton;
+export default WordsSkeleton;

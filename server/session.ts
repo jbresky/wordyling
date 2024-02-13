@@ -26,14 +26,14 @@ export async function login(formData: FormData) {
     const password = formData.get('password')
     const user = await prisma.user.findUnique({
         where: {
-            // @ts-expect-error
+            // @ts-ignore
             username: username
         }
     });
 
     if (!user) return { error: 'No user found'}
 
-    // @ts-expect-error
+    // @ts-ignore
     const isCorrectPassword = await bcrypt.compare(password, user.password);
 
     if (!isCorrectPassword) return { error: 'Invalid credentials' }
