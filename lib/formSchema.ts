@@ -27,5 +27,6 @@ export const formSchema = z.object({
     }),
     category: z.enum(categories, {
         errorMap: () => ({ message: "Please select a category" })
-    })
+    }),
+    language: z.number()
 })
