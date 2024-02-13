@@ -15,7 +15,7 @@ const LastsContainer = ({ words }: { words: Word[] }) => {
                             key={word.id}
                             className="w-fit text-center text-sm cursor-pointer py-1 font-medium px-6 rounded-xl bg-white"
                         >
-                            {word.text}
+                            {word.word}
                         </motion.div>
                     ))}
                 </AnimatePresence>

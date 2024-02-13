@@ -44,10 +44,11 @@ export default function PostForm() {
 
     function onSubmit(values: z.infer<typeof formSchema>) {
         createWord(values)
+        form.reset()
     }
 
     return (
-        <section className="flex flex-col gap-8 my-6">
+        <section className="flex flex-col gap-8 mt-12 mb-8">
             <Button onClick={() => setShow(!isShown)} className="w-fit text-black border-2 rounded-lg border-slate-300 hover:bg-[#f8f8f8] bg-white">Add new</Button>
 
             {isShown ? (
@@ -108,7 +109,7 @@ export default function PostForm() {
                                             <Select onValueChange={field.onChange}>
                                                 <FormControl>
                                                     <SelectTrigger>
-                                                        <SelectValue placeholder="Select" />
+                                                        <SelectValue placeholder="Noun" />
                                                     </SelectTrigger>
                                                 </FormControl>
                                                 <SelectContent>
