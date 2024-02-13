@@ -18,7 +18,10 @@ export const createWord = async (values: CreateWord) => {
     const capitalizedNativeWord = capsNative.charAt(0).toUpperCase() + capsNative.slice(1);
 
     const wordAlreadySaved = await prisma.word.findFirst({
-        where: { word: capitalizedWord }
+        where: { 
+            word: capitalizedWord,
+            user_id: session.user.id
+        }
     })
 
     if (wordAlreadySaved) { return { error: 'Word already saved' } }
@@ -30,7 +33,7 @@ export const createWord = async (values: CreateWord) => {
             pronunciation: values.pronunciation,
             category: values.category,
             user_id: session.user.id,
-            language_id: 1
+            language_id: values.language
         }
     })
     revalidatePath('/')
@@ -40,12 +43,18 @@ export const createWord = async (values: CreateWord) => {
     return { wordNew }
 }
 
-export const fetchAllWords = async () => {
+export const fetchAllWords = async (query?: string, filter?: string, language?: number) => {
     const session = await getSession()
+
+    const capsText = query;
+    const capitalizeQuery = capsText && capsText.charAt(0).toUpperCase() + capsText.slice(1);
 
     const data = await prisma.word.findMany({
         where: {
-            user_id: session.user.id
+            user_id: session.user.id,
+            word: capitalizeQuery,
+            category: filter,
+            language_id: language
         }
     })
 
@@ -62,12 +71,13 @@ export const fetchAllWords = async () => {
     return sortedData;
 }
 
-export const fetchLastWords = async (): Promise<Word[]> => {
+export const fetchLastWords = async (language?: number): Promise<Word[]> => {
     const session = await getSession()
 
     const data = await prisma.word.findMany({
         where: {
             user_id: session.user.id,
+            language_id: language
         },
         take: 10,
         orderBy: {
