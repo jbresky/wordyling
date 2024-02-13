@@ -21,7 +21,6 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <main className="max-w-7xl sm:px-20 m-auto p-4">
-          {/* @ts-expect-error */}
           <Header session={session} />
           {children}
         </main>

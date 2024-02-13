@@ -2,7 +2,7 @@ import Link from "next/link";
 import { GiAbstract013 } from "react-icons/gi";
 import Logout from "./forms/logout-form";
 
-const Header = async ({ session }: { session?: any }) => {
+const Header = ({ session }: { session?: any }) => {
 
     return (
         <header className="flex m-auto items-center justify-between">
