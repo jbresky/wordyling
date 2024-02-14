@@ -50,7 +50,7 @@ export default function PostForm({ languageId }: { languageId: number }) {
     }
 
     return (
-        <section className="flex flex-col gap-8 mt-12 mb-8">
+        <section className="flex flex-col gap-8 my-8">
             <div className="flex items-center justify-between">
             <Button onClick={() => setShow(!isShown)} className="w-fit text-black border-2 rounded-lg border-slate-300 hover:bg-[#f8f8f8] bg-white">Add new</Button>
             <LanguageFilter />
@@ -64,7 +64,7 @@ export default function PostForm({ languageId }: { languageId: number }) {
                         exit={{ opacity: 0 }}
                     >
                         <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)} className="flex max-lg:flex-col lg:items-end gap-4 lg:gap-10 w-full">
+                            <form onSubmit={form.handleSubmit(onSubmit)} className="flex max-lg:flex-col lg:items-end gap-2 xsm:gap-4 lg:gap-10 w-full">
                                 <FormField
                                     control={form.control}
                                     name="word"
@@ -108,7 +108,7 @@ export default function PostForm({ languageId }: { languageId: number }) {
                                     control={form.control}
                                     name="category"
                                     render={({ field }) => (
-                                        <FormItem className="md:w-1/4">
+                                        <FormItem className="lg:w-1/4">
                                             <FormLabel>Category</FormLabel>
                                             <Select onValueChange={field.onChange}>
                                                 <FormControl>
@@ -125,7 +125,7 @@ export default function PostForm({ languageId }: { languageId: number }) {
                                     )}
                                 />
                                  
-                                <Button type="submit">Submit</Button>
+                                <Button className="max-lg:mt-4" type="submit">Submit</Button>
                             </form>
                         </Form>
                     </motion.div>

@@ -14,7 +14,7 @@ const Header = ({ session }: { session?: any }) => {
             <ul className="flex items-center gap-2 sm:gap-6 max-sm:text-sm">
                 {session ? (
                     <>
-                        <Link href='/my-words' className="hidden sm:block hover:underline">
+                        <Link href='/my-words' className="hover:underline">
                             My words
                         </Link>
                         <Logout />
