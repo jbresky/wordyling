@@ -72,7 +72,7 @@ export default function PostForm({ languageId }: { languageId: number }) {
                                         <FormItem>
                                             <FormLabel>Word</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="Bror" {...field} />
+                                                <Input required placeholder="Bror" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -85,7 +85,7 @@ export default function PostForm({ languageId }: { languageId: number }) {
                                         <FormItem>
                                             <FormLabel>Native word</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="Brother" {...field} />
+                                                <Input required placeholder="Brother" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
