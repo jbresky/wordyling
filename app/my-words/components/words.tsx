@@ -17,7 +17,7 @@ const Words = async ({ query, filter, language }: Filters) => {
                     {words.length < 1 ? 'No words found' : 'Hover to see translations and more'}
                 </h3>
             </div>
-            <section className="flex flex-wrap items-center gap-8 md:gap-12">
+            <section className="flex flex-wrap max-lg:justify-between justify-center lg:grid grid-cols-8 items-center gap-4 sm:gap-8">
                 {words?.map((word: Word) => (
                     <WordContainer key={word.id} word={word} />
                 ))}

@@ -28,7 +28,7 @@ const WordContainer = ({ word }: { word: Word }) => {
                         <HoverCardContent className="flex flex-col gap-2">
                             <div className="flex items-center gap-2">
                                 <p>{word.nativeWord}</p>
-                                <p className="italic text-[13px] text-gray-700">
+                                <p className="italic tracking-wide text-[13px] text-gray-700">
                                     {word.pronunciation ? `[ ${word.pronunciation} ]` : null}
                                 </p>
                             </div>

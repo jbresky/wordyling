@@ -17,7 +17,7 @@ export default async function Home({
 
   return (
     <>
-      <main className="my-4 space-y-8">
+      <main className="my-4">
         <Suspense fallback={'Loading...'} >
           {/* @ts-ignore Async Server Component */}
           <LastWords language={language || 1} />

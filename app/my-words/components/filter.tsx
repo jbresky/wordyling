@@ -30,7 +30,7 @@ const Filters = () => {
     }
 
     return (
-        <div className="flex justify-between items-center">
+        <div className="flex max-sm:flex-col max-sm:gap-3 justify-between sm:items-center">
             <section className="flex gap-4">
                 <Select
                     onValueChange={handleFilter}
