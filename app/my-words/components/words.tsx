@@ -13,7 +13,12 @@ const Words = async ({ query, filter, language }: Filters) => {
     return (
         <>
             <div className="flex items-center justify-between">
-                <h3 className="text-gray-700 max-sm:text-sm">
+                {/* mobile heading - only "tap" change*/}
+                <h3 className="md:hidden text-gray-700 max-sm:text-sm">
+                    {words.length < 1 ? 'No words found' : 'Tap to see translations and more'}
+                </h3>
+
+                <h3 className="hidden md:block text-gray-700 max-sm:text-sm">
                     {words.length < 1 ? 'No words found' : 'Hover to see translations and more'}
                 </h3>
             </div>
