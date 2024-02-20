@@ -52,8 +52,8 @@ export default function PostForm({ languageId }: { languageId: number }) {
     return (
         <section className="flex flex-col gap-8 my-8">
             <div className="flex items-center justify-between">
-            <Button onClick={() => setShow(!isShown)} className="w-fit text-black border-2 rounded-lg border-slate-300 hover:bg-[#f8f8f8] bg-white">Add new</Button>
-            <LanguageFilter />
+                <Button onClick={() => setShow(!isShown)} className="w-fit text-black border-2 rounded-lg border-slate-300 hover:bg-[#f8f8f8] bg-white">Add new</Button>
+                <LanguageFilter />
             </div>
             {isShown ? (
                 <AnimatePresence presenceAffectsLayout>
@@ -124,8 +124,9 @@ export default function PostForm({ languageId }: { languageId: number }) {
                                         </FormItem>
                                     )}
                                 />
-                                 
-                                <Button className="max-lg:mt-4" type="submit">Submit</Button>
+                                <Button disabled={form.formState.isSubmitting} className="max-lg:mt-4" type="submit">{form.formState.isSubmitting ? 'Submitting...' : 'Submit'}
+                                </Button>
+
                             </form>
                         </Form>
                     </motion.div>
