@@ -18,8 +18,9 @@ export const createWord = async (values: CreateWord) => {
     const capitalizedNativeWord = capsNative.charAt(0).toUpperCase() + capsNative.slice(1);
 
     const wordAlreadySaved = await prisma.word.findFirst({
-        where: { 
+        where: {
             word: capitalizedWord,
+            language_id: values.language,
             user_id: session.user.id
         }
     })
