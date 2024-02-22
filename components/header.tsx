@@ -2,17 +2,7 @@ import Link from "next/link";
 import { GiAbstract013 } from "react-icons/gi";
 import Logout from "./forms/logout-form";
 
-interface HeaderProps {
-    session: any,
-    searchParams?: {
-        language: string
-    }
-}
-
-const Header = ({ session, searchParams }: HeaderProps) => {
-    const language = searchParams?.language
-    // console.log(language);
-    
+const Header = ({ session }: { session?: any }) => {
 
     return (
         <header className="flex m-auto items-center justify-between">
@@ -24,7 +14,7 @@ const Header = ({ session, searchParams }: HeaderProps) => {
             <ul className="flex items-center gap-2 sm:gap-6 max-sm:text-sm">
                 {session ? (
                     <>
-                        <Link href={`/my-words?${language}`} className="hover:underline">
+                        <Link href='/my-words' className="hover:underline">
                             My words
                         </Link>
                         <Logout />

@@ -7,10 +7,8 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { HoverCardContent, HoverCardTrigger } from "@radix-ui/react-hover-card";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import FlagContainer from "./flags-container";
-import { HoverCard } from "./ui/hover-card";
 
 const LanguageFilter = () => {
     const searchParams = useSearchParams()
@@ -30,30 +28,24 @@ const LanguageFilter = () => {
     }
 
     return (
-        <HoverCard>
-            <Select
-                onValueChange={handleLanguage}
-                defaultValue={searchParams.get('language')?.toString()}>
-                <HoverCardTrigger>
-                    <SelectTrigger className="w-fit px-0 h-10 border-2 rounded-lg hover:bg-slate-100 transition duration-200 border-slate-300 font-medium focus:bg-[#fcefef]">
-                        <SelectValue placeholder={<FlagContainer code="DK" />} />
-                    </SelectTrigger>
-                </HoverCardTrigger>
-                <HoverCardContent>
-                    <SelectContent>
-                        <SelectItem value="1" className="hover:bg-slate-100">
-                            <FlagContainer code="DK" />
-                        </SelectItem>
-                        <SelectItem value="2" className="hover:bg-slate-100">
-                            <FlagContainer code="DE" />
-                        </SelectItem>
-                        <SelectItem value="3" className="hover:bg-slate-100">
-                            <FlagContainer code="FR" />
-                        </SelectItem>
-                    </SelectContent>
-                </HoverCardContent>
-            </Select>
-        </HoverCard>
+        <Select
+            onValueChange={handleLanguage}
+            defaultValue={searchParams.get('language')?.toString()}>
+            <SelectTrigger className="w-fit px-0 h-10 border-2 rounded-lg hover:bg-slate-100 transition duration-200 border-slate-300 font-medium focus:bg-[#fcefef]">
+                <SelectValue placeholder={<FlagContainer code="DK" />} />
+            </SelectTrigger>
+            <SelectContent>
+                <SelectItem value="1" className="hover:bg-slate-100">
+                    <FlagContainer code="DK" />
+                </SelectItem>
+                <SelectItem value="2" className="hover:bg-slate-100">
+                    <FlagContainer code="DE" />
+                </SelectItem>
+                <SelectItem value="3" className="hover:bg-slate-100">
+                    <FlagContainer code="FR" />
+                </SelectItem>
+            </SelectContent>
+        </Select>
     );
 }
 
