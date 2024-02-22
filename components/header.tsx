@@ -4,7 +4,7 @@ import Logout from "./forms/logout-form";
 
 interface HeaderProps {
     session: any,
-    searchParams: {
+    searchParams?: {
         language: string
     }
 }
