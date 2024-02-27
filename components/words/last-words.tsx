@@ -8,7 +8,7 @@ export default async function LastWords({ language }: { language: number }) {
     return (
         <>
             {words.length > 0 ? (
-                <Link href='/my-words'>
+                <Link href={`/my-words?language=${language}`}>
                     <section className={`${language === 2 ? 'bg-amber-100' : "bg-rose-100"} ${language === 3 && 'bg-sky-100'} p-4 rounded-2xl hover:bg-slate-100 transition duration-300`}>
                         <div className="flex flex-col w-full gap-4">
                             <h1 className="text-xl">Last Words</h1>
