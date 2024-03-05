@@ -4,7 +4,7 @@ const categories = ["Noun", "Verb", "Adjective", "Adverb", "Pronoun", "Prepositi
 
 export type Categories = (typeof categories)[number]
 
-export const mappedCategories: {[key in Categories]: string} = {
+export const mappedCategories: { [key in Categories]: string } = {
     Noun: "Noun",
     Verb: "Verb",
     Adjective: "Adjective",
@@ -29,4 +29,14 @@ export const formSchema = z.object({
         errorMap: () => ({ message: "Please select a category" })
     }),
     language: z.number()
+})
+
+export const sentenceFormSchema = formSchema.omit({
+    word: true,
+    native: true,
+    pronunciation: true
+}).extend({
+    sentence: z.string().max(60, {
+        message: "Sentence must be concise"
+    }),
 })
