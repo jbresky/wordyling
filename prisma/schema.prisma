@@ -18,14 +18,16 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  words Word[]
+  words     Word[]
+  sentences Sentence[]
 }
 
 model Language {
   id   Int    @id @default(autoincrement())
   name String @unique
 
-  words Word[]
+  words     Word[]
+  sentences Sentence[]
 }
 
 model Word {
@@ -36,10 +38,27 @@ model Word {
   pronunciation String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-  // user relationship
-  user_id        Int
+  
+  user_id       Int
   user          User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  // language relationship
-  language_id    Int
+
+  language_id   Int
   language      Language @relation(fields: [language_id], references: [id], onDelete: Cascade)
+
+  Sentence Sentence[]
+}
+
+model Sentence {
+  id       Int    @id @default(autoincrement())
+  sentence String
+  category String
+
+  word_id Int
+  word    Word @relation(fields: [word_id], references: [id], onDelete: Cascade)
+
+  language_id Int
+  language    Language @relation(fields: [language_id], references: [id], onDelete: Cascade)
+
+  User        User    @relation(fields: [userId], references: [id])
+  userId      Int
 }
