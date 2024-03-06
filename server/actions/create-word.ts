@@ -1,12 +1,13 @@
 'use server'
 
-import { formSchema } from "@/lib/formSchema"
+import { formSchema, sentenceFormSchema } from "@/lib/formSchema"
 import { revalidatePath } from "next/cache"
 import z from "zod"
 import prisma from '@/lib/prisma'
 import { getSession } from "../session"
 
 type CreateWord = z.infer<typeof formSchema>
+type CreateSentence = z.infer<typeof sentenceFormSchema>
 
 export const createWord = async (values: CreateWord) => {
     const session = await getSession()
@@ -56,6 +57,9 @@ export const fetchAllWords = async (query?: string, filter?: string, language?: 
             word: capitalizeQuery,
             category: filter,
             language_id: language
+        },
+        include: {
+            Sentence: true
         }
     })
 
@@ -97,4 +101,39 @@ export const deleteWord = async ({ id }: { id: number }) => {
     } catch (error) {
         return { error: "Something went wrong" }
     }
+}
+
+export const createSentence = async (values: CreateSentence) => {
+    const session = await getSession()
+
+    const capsText = values.sentence;
+    const capitalizedSentence = capsText.charAt(0).toUpperCase() + capsText.slice(1);
+
+    const sentenceAlreadySaved = await prisma.sentence.findFirst({
+        where: {
+            sentence: capitalizedSentence,
+            category: values.category,
+            language_id: values.language,
+            userId: session.user.id,
+            word_id: values.word_id
+        }
+    })
+
+    if (sentenceAlreadySaved) { return { error: 'Sentence already saved' } }
+
+    const newSentence = await prisma.sentence.create({
+        data: {
+            sentence: capitalizedSentence,
+            category: values.category,
+            userId: session.user.id,
+            language_id: values.language,
+            word_id: values.word_id
+        }
+    })
+
+    revalidatePath('/')
+
+    if (!newSentence) return { error: 'Could not create word' }
+
+    return { newSentence }
 }

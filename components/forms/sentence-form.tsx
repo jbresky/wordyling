@@ -1,12 +1,12 @@
 'use client'
 
 import {
-    AlertDialog,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+    Dialog,
+    DialogContent,
+    DialogTitle,
+    DialogTrigger,
+  } from "@/components/ui/dialog"
+  
 import {
     Form,
     FormControl,
@@ -24,6 +24,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { mappedCategories, sentenceFormSchema } from "@/lib/formSchema"
+import { createSentence } from "@/server/actions/create-word"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import z from "zod"
@@ -36,7 +37,8 @@ const SentenceDialogForm = ({ word, languageId }: { word: Word, languageId: numb
         defaultValues: {
             sentence: "",
             category: "Noun",
-            language: languageId
+            language: languageId,
+            word_id: word.id
         }
     })
 
@@ -45,26 +47,21 @@ const SentenceDialogForm = ({ word, languageId }: { word: Word, languageId: numb
     ))
 
     function submitSentence(values: z.infer<typeof sentenceFormSchema>) {
-        // createSentence(values)
-        console.log(values)
+        createSentence(values)
         sentenceForm.reset()
     }
 
     return (
-        <AlertDialog>
-            <AlertDialogTrigger>
-                {/* <Button className="w-[120px] text-black border-2 rounded-lg border-slate-300 hover:bg-[#f8f8f8] bg-white"> */}
+        <Dialog>
+            <DialogTrigger>
                 <p className="text-center text-sm cursor-pointer w-[90px] py-1 font-medium border-b border-black">
                     {word.nativeWord}
                 </p>
-                {/* </Button> */}
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-                <AlertDialogTitle>Create a sentence using <span className="text-red-400">{word.nativeWord}</span></AlertDialogTitle>
-                {/* <AlertDialogHeader className="text-start"> */}
-                {/* <AlertDialogDescription> */}
+            </DialogTrigger>
+            <DialogContent>
+                <DialogTitle>Create a sentence using <span className="text-red-400">{word.nativeWord}</span></DialogTitle>
                 <Form {...sentenceForm}>
-                    <form onSubmit={sentenceForm.handleSubmit(submitSentence)} className="flex max-lg:flex-col lg:items-end gap-2 xsm:gap-4 lg:gap-10 w-full">
+                    <form onSubmit={sentenceForm.handleSubmit(submitSentence)} className="flex flex-col gap-2 xsm:gap-4 w-full">
                         <FormField
                             control={sentenceForm.control}
                             name="sentence"
@@ -99,20 +96,12 @@ const SentenceDialogForm = ({ word, languageId }: { word: Word, languageId: numb
                                 </FormItem>
                             )}
                         />
-
                         <Button disabled={sentenceForm.formState.isSubmitting} className="max-lg:mt-4" type="submit">{sentenceForm.formState.isSubmitting ? 'Submitting...' : 'Submit'}
                         </Button>
-
-                        <AlertDialogCancel>
-                            Close
-                        </AlertDialogCancel>
                     </form>
                 </Form>
-                {/* </AlertDialogDescription> */}
-                {/* </AlertDialogHeader> */}
-
-            </AlertDialogContent>
-        </AlertDialog>
+            </DialogContent>
+        </Dialog>
 
     );
 }
