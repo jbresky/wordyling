@@ -53,7 +53,7 @@ const WordContainer = ({ word, isSentence, language }: { word: Word, isSentence?
                                             <p className="text-[13px]">Sentences ({word.Sentence.length})</p>
                                                 <ul className="text-[12px] text-gray-400">
                                                     {word.Sentence.map((sentence: Sentence) => (
-                                                        <li className="list-disc">{sentence.category}</li>
+                                                        <li key={sentence.id} className="list-disc">{sentence.category}</li>
                                                     ))}
                                                 </ul>
                                         </div>
@@ -86,7 +86,7 @@ const WordContainer = ({ word, isSentence, language }: { word: Word, isSentence?
                                             <p className="text-[13px]">Sentences ({word.Sentence.length})</p>
                                                 <ul className="text-[12px] text-gray-400">
                                                     {word.Sentence.map((sentence: Sentence) => (
-                                                        <li className="list-disc">{sentence.category}</li>
+                                                        <li key={sentence.id} className="list-disc">{sentence.category}</li>
                                                     ))}
                                                 </ul>
                                         </div>
