@@ -5,7 +5,6 @@ import {
     HoverCardContent,
     HoverCardTrigger,
 } from "@/components/ui/hover-card"
-import { PiDotsThreeBold } from "react-icons/pi";
 import { TrashIcon } from "@radix-ui/react-icons";
 import { deleteWord } from "@/server/actions/create-word"
 import { AnimatePresence, motion } from "framer-motion"
@@ -35,7 +34,7 @@ const WordContainer = ({ word, isSentence, language }: { word: Word, isSentence?
                             <PopoverTrigger className="md:hidden text-center text-sm cursor-pointer w-[90px] py-1 font-medium border-b border-black">
                                 {word.word}
                             </PopoverTrigger>
-                            <PopoverContent>
+                            <PopoverContent className="space-y-2">
                                 <div className="flex justify-between items-center">
                                     <div className="flex items-center gap-2">
                                         <p>{word.nativeWord}</p>
@@ -43,12 +42,22 @@ const WordContainer = ({ word, isSentence, language }: { word: Word, isSentence?
                                             {word.pronunciation ? `[ ${word.pronunciation} ]` : null}
                                         </p>
                                     </div>
-                                    <PiDotsThreeBold />
+                                    <TrashIcon className="cursor-pointer" onClick={() => deleteWord({ id: word.id })} color="red" />
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <p className="text-[13px] text-gray-400">{word.category}</p>
-                                    <TrashIcon className="cursor-pointer" onClick={() => deleteWord({ id: word.id })} color="red" />
                                 </div>
+                                {word.Sentence?.length ?
+                                    (
+                                        <div className="flex items-center justify-between border-t border-gray-300 pt-2">
+                                            <p className="text-[13px]">Sentences ({word.Sentence.length})</p>
+                                                <ul className="text-[12px] text-gray-400">
+                                                    {word.Sentence.map((sentence: Sentence) => (
+                                                        <li className="list-disc">{sentence.category}</li>
+                                                    ))}
+                                                </ul>
+                                        </div>
+                                    ) : null}
                             </PopoverContent>
                         </Popover>
 
@@ -58,17 +67,30 @@ const WordContainer = ({ word, isSentence, language }: { word: Word, isSentence?
                                 >
                                     {word.word}
                                 </p>
-                                <HoverCardContent className="flex flex-col gap-2">
+                                <HoverCardContent className="space-y-2">
+                                <div className="flex justify-between items-center">
                                     <div className="flex items-center gap-2">
                                         <p>{word.nativeWord}</p>
                                         <p className="italic tracking-wide text-[13px] text-gray-700">
                                             {word.pronunciation ? `[ ${word.pronunciation} ]` : null}
                                         </p>
                                     </div>
-                                    <div className="flex items-center justify-between">
-                                        <p className="text-[13px] text-gray-400">{word.category}</p>
-                                        <TrashIcon className="cursor-pointer" onClick={() => deleteWord({ id: word.id })} color="red" />
-                                    </div>
+                                    <TrashIcon className="cursor-pointer" onClick={() => deleteWord({ id: word.id })} color="red" />
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <p className="text-[13px] text-gray-400">{word.category}</p>
+                                </div>
+                                {word.Sentence?.length ?
+                                    (
+                                        <div className="flex items-center justify-between border-t border-gray-300 pt-2">
+                                            <p className="text-[13px]">Sentences ({word.Sentence.length})</p>
+                                                <ul className="text-[12px] text-gray-400">
+                                                    {word.Sentence.map((sentence: Sentence) => (
+                                                        <li className="list-disc">{sentence.category}</li>
+                                                    ))}
+                                                </ul>
+                                        </div>
+                                    ) : null}
                                 </HoverCardContent>
                             </HoverCardTrigger>
                         </HoverCard>
