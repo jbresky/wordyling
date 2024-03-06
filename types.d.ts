@@ -1,3 +1,12 @@
+interface Sentence {
+    id: number;
+    sentence: string;
+    category: string;
+    word_id: number;
+    language_id: number;
+    userId: number;
+}
+
 interface Word {
     id: number
     word: string
@@ -7,4 +16,5 @@ interface Word {
     user_id: number
     createdAt: Date
     language_id: number
+    Sentence?: Sentence[]
 }
