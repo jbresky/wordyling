@@ -17,7 +17,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { formSchema, mappedCategories, sentenceFormSchema } from "@/lib/formSchema"
+import { formSchema, mappedCategories } from "@/lib/formSchema"
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from "react-hook-form"
 import { useState } from "react"
@@ -25,12 +25,9 @@ import z from "zod"
 import { AnimatePresence, motion } from 'framer-motion'
 import LanguageFilter from "../language-filter"
 import Search from "../search"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { createWord } from "@/server/actions/create-word"
 
 export default function PostForm({ languageId }: { languageId: number }) {
-    const { replace} = useRouter()
-    const path = usePathname()
     const [showWordForm, setWordForm] = useState(false)
     const [showSentenceForm, setSentenceForm] = useState(false)
 
@@ -154,7 +151,7 @@ export default function PostForm({ languageId }: { languageId: number }) {
                         initial={{ opacity: 0 }}
                         exit={{ opacity: 0 }}
                     >
-                        <Search placeholder="Search a word and give it a context..."/>
+                        <Search placeholder="Search a word and give it a context"/>
                     </motion.div>
                 </AnimatePresence>
             ) : null}
