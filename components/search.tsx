@@ -25,7 +25,7 @@ const Search = ({ placeholder }: { placeholder: string }) => {
     return ( 
         <div>
             <Input
-                className="border-2 rounded-lg border-slate-300"
+                className="border-2 rounded-lg border-slate-300 max-w-[300px]"
                 onChange={(e) => handleSearch(e.target.value)}
                 placeholder={placeholder}
                 defaultValue={searchParams.get('query')?.toString()}
