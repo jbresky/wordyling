@@ -26,15 +26,13 @@ import { AnimatePresence, motion } from 'framer-motion'
 import LanguageFilter from "../language-filter"
 import Search from "../search"
 import { createWord } from "@/server/actions/create-word"
+import { useSearchParams } from "next/navigation"
 
 export default function PostForm({ languageId }: { languageId: number }) {
     const [showWordForm, setWordForm] = useState(false)
     const [showSentenceForm, setSentenceForm] = useState(false)
 
-    const handleSentenceForm = () => {
-
-        setSentenceForm(!showSentenceForm)
-    }
+    const searchParams = useSearchParams()
 
     const form: any = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -57,11 +55,15 @@ export default function PostForm({ languageId }: { languageId: number }) {
     }
 
     return (
-        <section className="flex flex-col gap-8 my-8">
+        <section className="flex flex-col gap-8 my-6">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                     <Button onClick={() => setWordForm(!showWordForm)} className="w-fit text-black border-2 rounded-lg border-slate-300 hover:bg-[#f8f8f8] bg-white">Add word</Button>
-                    <Button onClick={handleSentenceForm} className="w-fit text-black border-2 rounded-lg border-slate-300 hover:bg-[#f8f8f8] bg-white">Add sentence</Button>
+                    {searchParams.has("query") ? (
+                        null
+                        ) : (
+                            <Button onClick={() => setSentenceForm(!showSentenceForm)} className="w-fit text-black border-2 rounded-lg border-slate-300 hover:bg-[#f8f8f8] bg-white">Add sentence</Button>
+                        )}
                 </div>
                 <LanguageFilter />
             </div>
@@ -82,7 +84,7 @@ export default function PostForm({ languageId }: { languageId: number }) {
                                         <FormItem className="w-full">
                                             <FormLabel>Word</FormLabel>
                                             <FormControl>
-                                                <Input required placeholder="Bror" {...field} />
+                                                <Input required {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -95,7 +97,7 @@ export default function PostForm({ languageId }: { languageId: number }) {
                                         <FormItem className="w-full">
                                             <FormLabel>Native word</FormLabel>
                                             <FormControl>
-                                                <Input required placeholder="Brother" {...field} />
+                                                <Input required {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -150,8 +152,10 @@ export default function PostForm({ languageId }: { languageId: number }) {
                         animate={{ opacity: 1 }}
                         initial={{ opacity: 0 }}
                         exit={{ opacity: 0 }}
+                        className="space-y-2"
                     >
-                        <Search placeholder="Search a word and give it a context"/>
+                        <h3 className="font-semibold text-sm">Select word and provide a context</h3>
+                        <Search placeholder="Search..."/>
                     </motion.div>
                 </AnimatePresence>
             ) : null}
