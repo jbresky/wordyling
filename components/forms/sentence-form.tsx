@@ -10,6 +10,7 @@ import {
 import {
     Form,
     FormControl,
+    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -55,11 +56,11 @@ const SentenceDialogForm = ({ word, languageId }: { word: Word, languageId: numb
         <Dialog>
             <DialogTrigger>
                 <p className="text-center text-sm cursor-pointer w-[90px] py-1 font-medium border-b border-black">
-                    {word.nativeWord}
+                    {word.word}
                 </p>
             </DialogTrigger>
             <DialogContent>
-                <DialogTitle>Create a sentence using <span className="text-red-400">{word.nativeWord}</span></DialogTitle>
+                <DialogTitle className="text-base">Word: <span className="text-red-400">{word.word}</span></DialogTitle>
                 <Form {...sentenceForm}>
                     <form onSubmit={sentenceForm.handleSubmit(submitSentence)} className="flex flex-col gap-2 xsm:gap-4 w-full">
                         <FormField
@@ -69,7 +70,7 @@ const SentenceDialogForm = ({ word, languageId }: { word: Word, languageId: numb
                                 <FormItem className="w-full">
                                     <FormLabel>Sentence</FormLabel>
                                     <FormControl>
-                                        <Input required placeholder="Un homme mange et un chat manges" {...field} />
+                                        <Input required {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -82,6 +83,7 @@ const SentenceDialogForm = ({ word, languageId }: { word: Word, languageId: numb
                             render={({ field }) => (
                                 <FormItem className="w-full">
                                     <FormLabel>Category</FormLabel>
+                                    <FormDescription>Select a category to provide a specific context</FormDescription>
                                     <Select onValueChange={field.onChange}>
                                         <FormControl>
                                             <SelectTrigger>
