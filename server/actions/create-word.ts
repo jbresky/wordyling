@@ -54,7 +54,9 @@ export const fetchAllWords = async (query?: string, filter?: string, language?: 
     const data = await prisma.word.findMany({
         where: {
             user_id: session.user.id,
-            word: capitalizeQuery,
+            word: {
+                contains: capitalizeQuery
+            },
             category: filter,
             language_id: language
         },
@@ -136,4 +138,21 @@ export const createSentence = async (values: CreateSentence) => {
     if (!newSentence) return { error: 'Could not create word' }
 
     return { newSentence }
+}
+
+export const fetchSentences = async (language?: number) => {
+    const session = await getSession()
+
+    const data = await prisma.sentence.findMany({
+        where: {
+            userId: session.user.id,
+            language_id: language
+        },
+        include: {
+            word: true,
+            language: true
+        }
+    })
+
+    return data;
 }
