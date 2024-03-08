@@ -17,6 +17,9 @@ const Header = ({ session }: { session?: any }) => {
                         <Link href='/my-words' className="hover:underline">
                             My words
                         </Link>
+                        <Link href='/sentences' className="hover:underline">
+                            Sentences
+                        </Link>
                         <Logout />
                     </>
                 ) : (
