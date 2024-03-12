@@ -5,6 +5,7 @@ interface Sentence {
     word_id: number;
     language_id: number;
     userId: number;
+    word: Word
 }
 
 interface Word {
