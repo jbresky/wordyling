@@ -33,7 +33,7 @@ const Words = async ({ query, filter, language, isSentence }: Filters) => {
             </div>
 
             <section className="flex flex-wrap max-lg:justify-between justify-center lg:grid grid-cols-8 items-center gap-4 sm:gap-8">
-                {words?.map((word: Word) => (
+                {words?.map((word: any) => (
                     <WordContainer language={language} key={word.id} word={word} isSentence={isSentence} />
                 ))}
             </section>
