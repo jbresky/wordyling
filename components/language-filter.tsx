@@ -19,7 +19,7 @@ const LanguageFilter = () => {
         const params = new URLSearchParams(searchParams)
         params.set('language', id)
 
-        if (path === "/my-words" || "/sentences") {
+        if (path === "/my-words" || path === "/sentences") {
             replace(`${path}?${params.toString()}`)
         } else {
             // this reload the page, which is necessary for the post word to work properly .
