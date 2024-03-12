@@ -9,13 +9,12 @@ const Sentences = ({ sentences }: { sentences: Sentence[] }) => {
         <div className="flex flex-col sm:grid grid-cols-2 lg:grid-cols-4 gap-4">
             {sentences.length > 0 ?
                 sentences.map(sentence => (
-                    <AnimatePresence presenceAffectsLayout>
+                    <AnimatePresence key={sentence.id} presenceAffectsLayout>
                         <motion.div
                             layout
                             animate={{ opacity: 1 }}
                             initial={{ opacity: 0 }}
                             exit={{ opacity: 0 }}
-                            key={sentence.id}
                             className="rounded-lg p-2 text-sm w-full space-y-2 bg-slate-100"
                         >
                             <div className="flex items-center justify-between">
