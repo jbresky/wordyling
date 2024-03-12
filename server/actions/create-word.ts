@@ -48,14 +48,13 @@ export const createWord = async (values: CreateWord) => {
 export const fetchAllWords = async (query?: string, filter?: string, language?: number) => {
     const session = await getSession()
 
-    const capsText = query;
-    const capitalizeQuery = capsText && capsText.charAt(0).toUpperCase() + capsText.slice(1);
+    const capitalizedQuery = query && query.charAt(0).toUpperCase() + query.slice(1);
 
     const data = await prisma.word.findMany({
         where: {
             user_id: session.user.id,
             word: {
-                contains: capitalizeQuery
+                contains: capitalizedQuery
             },
             category: filter,
             language_id: language
@@ -140,13 +139,18 @@ export const createSentence = async (values: CreateSentence) => {
     return { newSentence }
 }
 
-export const fetchSentences = async (language?: number) => {
+export const fetchSentences = async (query?: string, language?: number) => {
     const session = await getSession()
+
+    const capitalizedQuery = query && query.charAt(0).toUpperCase() + query.slice(1);
 
     const data = await prisma.sentence.findMany({
         where: {
             userId: session.user.id,
-            language_id: language
+            language_id: language,
+            sentence: {
+                contains: capitalizedQuery
+            }
         },
         include: {
             word: true,
@@ -155,4 +159,15 @@ export const fetchSentences = async (language?: number) => {
     })
 
     return data;
+}
+
+export const deleteSentence = async (id: number) => {
+    try {
+        await prisma.sentence.delete({ where: { id } })
+        revalidatePath('/sentences')
+        return { success: "Product deleted" }
+
+    } catch (error) {
+        return { error: "Something went wrong" }
+    }
 }
