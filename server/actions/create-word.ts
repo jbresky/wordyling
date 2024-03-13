@@ -125,6 +125,7 @@ export const createSentence = async (values: CreateSentence) => {
     const newSentence = await prisma.sentence.create({
         data: {
             sentence: capitalizedSentence,
+            translation: values.translation,
             category: values.category,
             userId: session.user.id,
             language_id: values.language,
