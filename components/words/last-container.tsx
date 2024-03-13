@@ -13,7 +13,7 @@ const LastsContainer = ({ words }: { words: Word[] }) => {
                             initial={{ opacity: 0 }}
                             exit={{ opacity: 0 }}
                             key={word.id}
-                            className="w-fit text-center text-sm cursor-pointer py-1 font-medium px-1 xsm:px-6 rounded-xl bg-white"
+                            className="w-[120px] text-center text-sm cursor-pointer py-1 font-medium px-1 sm:px-6 rounded-xl bg-white"
                         >
                             {word.word}
                         </motion.div>
