@@ -5,8 +5,8 @@ import {
     DialogContent,
     DialogTitle,
     DialogTrigger,
-  } from "@/components/ui/dialog"
-  
+} from "@/components/ui/dialog"
+
 import {
     Form,
     FormControl,
@@ -37,6 +37,7 @@ const SentenceDialogForm = ({ word, languageId }: { word: Word, languageId: numb
         resolver: zodResolver(sentenceFormSchema),
         defaultValues: {
             sentence: "",
+            translation: "",
             category: "Noun",
             language: languageId,
             word_id: word.id
@@ -69,6 +70,20 @@ const SentenceDialogForm = ({ word, languageId }: { word: Word, languageId: numb
                             render={({ field }) => (
                                 <FormItem className="w-full">
                                     <FormLabel>Sentence</FormLabel>
+                                    <FormControl>
+                                        <Input required {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={sentenceForm.control}
+                            name="translation"
+                            render={({ field }) => (
+                                <FormItem className="w-full">
+                                    <FormLabel>Translation</FormLabel>
                                     <FormControl>
                                         <Input required {...field} />
                                     </FormControl>
