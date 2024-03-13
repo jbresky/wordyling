@@ -39,5 +39,8 @@ export const sentenceFormSchema = formSchema.omit({
     sentence: z.string().max(60, {
         message: "Sentence must be concise"
     }),
+    translation: z.string().max(60, {
+        message: "Translation must be concise"
+    }),
     word_id: z.number()
 })
