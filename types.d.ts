@@ -1,6 +1,7 @@
 interface Sentence {
     id: number;
     sentence: string;
+    translation: string;
     category: string;
     word_id: number;
     language_id: number;
