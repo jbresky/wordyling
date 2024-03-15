@@ -44,6 +44,15 @@ const LanguageFilter = () => {
                 <SelectItem value="3" className="hover:bg-slate-100">
                     <FlagContainer code="FR" />
                 </SelectItem>
+                <SelectItem value="4" className="hover:bg-slate-100">
+                    <FlagContainer code="ES" />
+                </SelectItem>
+                <SelectItem value="5" className="hover:bg-slate-100">
+                    <FlagContainer code="IT" />
+                </SelectItem>
+                <SelectItem value="6" className="hover:bg-slate-100">
+                    <FlagContainer code="PT" />
+                </SelectItem>
             </SelectContent>
         </Select>
     );
