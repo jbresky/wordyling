@@ -33,6 +33,7 @@ const WordContainer = ({ word, isSentence, language }: { word: Word, isSentence?
                         <Popover key={word.id}>
                             <PopoverTrigger className="md:hidden text-center text-sm cursor-pointer w-[90px] py-1 font-medium border-b border-black">
                                 {word.word}
+                                {word?.Sentence?.length ? <span className="text-red-300 relative bottom-2 left-1 text-2xl/[0px] font-bold">.</span> : null}
                             </PopoverTrigger>
                             <PopoverContent className="space-y-2">
                                 <div className="flex justify-between items-center">
@@ -51,11 +52,11 @@ const WordContainer = ({ word, isSentence, language }: { word: Word, isSentence?
                                     (
                                         <div className="flex items-center justify-between border-t border-gray-300 pt-2">
                                             <p className="text-[13px]">Sentences ({word.Sentence.length})</p>
-                                                <ul className="text-[12px] text-gray-400">
-                                                    {word.Sentence.map((sentence: Sentence) => (
-                                                        <li key={sentence.id} className="list-disc">{sentence.category}</li>
-                                                    ))}
-                                                </ul>
+                                            <ul className="text-[12px] text-gray-400">
+                                                {word.Sentence.map((sentence: Sentence) => (
+                                                    <li key={sentence.id} className="list-disc">{sentence.category}</li>
+                                                ))}
+                                            </ul>
                                         </div>
                                     ) : null}
                             </PopoverContent>
@@ -66,31 +67,32 @@ const WordContainer = ({ word, isSentence, language }: { word: Word, isSentence?
                                 <p key={word.id} className="hidden md:block text-center text-sm cursor-pointer w-[90px] py-1 font-medium border-b border-black"
                                 >
                                     {word.word}
+                                    {word?.Sentence?.length ? <span className="w-fit text-red-300 relative bottom-2 left-1 text-2xl/[0px] font-bold">.</span> : null}
                                 </p>
                                 <HoverCardContent className="space-y-2">
-                                <div className="flex justify-between items-center">
-                                    <div className="flex items-center gap-2">
-                                        <p>{word.nativeWord}</p>
-                                        <p className="italic tracking-wide text-[13px] text-gray-700">
-                                            {word.pronunciation ? `[ ${word.pronunciation} ]` : null}
-                                        </p>
+                                    <div className="flex justify-between items-center">
+                                        <div className="flex items-center gap-2">
+                                            <p>{word.nativeWord}</p>
+                                            <p className="italic tracking-wide text-[13px] text-gray-700">
+                                                {word.pronunciation ? `[ ${word.pronunciation} ]` : null}
+                                            </p>
+                                        </div>
+                                        <TrashIcon className="cursor-pointer" onClick={() => deleteWord({ id: word.id })} color="red" />
                                     </div>
-                                    <TrashIcon className="cursor-pointer" onClick={() => deleteWord({ id: word.id })} color="red" />
-                                </div>
-                                <div className="flex items-center justify-between">
-                                    <p className="text-[13px] text-gray-400">{word.category}</p>
-                                </div>
-                                {word.Sentence?.length ?
-                                    (
-                                        <div className="flex items-center justify-between border-t border-gray-300 pt-2">
-                                            <p className="text-[13px]">Sentences ({word.Sentence.length})</p>
+                                    <div className="flex items-center justify-between">
+                                        <p className="text-[13px] text-gray-400">{word.category}</p>
+                                    </div>
+                                    {word.Sentence?.length ?
+                                        (
+                                            <div className="flex items-center justify-between border-t border-gray-300 pt-2">
+                                                <p className="text-[13px]">Sentences ({word.Sentence.length})</p>
                                                 <ul className="text-[12px] text-gray-400">
                                                     {word.Sentence.map((sentence: Sentence) => (
                                                         <li key={sentence.id} className="list-disc">{sentence.category}</li>
                                                     ))}
                                                 </ul>
-                                        </div>
-                                    ) : null}
+                                            </div>
+                                        ) : null}
                                 </HoverCardContent>
                             </HoverCardTrigger>
                         </HoverCard>
