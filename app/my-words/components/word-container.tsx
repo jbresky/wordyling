@@ -16,6 +16,10 @@ import {
 import SentenceDialogForm from "@/components/forms/sentence-form";
 
 const WordContainer = ({ word, isSentence, language }: { word: Word, isSentence?: boolean, language: number }) => {
+    const uniqueCategories = [
+        ...new Set(word && word.Sentence?.map(({ category }: { category: Sentence["category"] }) => category))
+    ]
+
     return (
         <AnimatePresence presenceAffectsLayout>
             <motion.div
@@ -53,8 +57,8 @@ const WordContainer = ({ word, isSentence, language }: { word: Word, isSentence?
                                         <div className="flex items-center justify-between border-t border-gray-300 pt-2">
                                             <p className="text-[13px]">Sentences ({word.Sentence.length})</p>
                                             <ul className="text-[12px] text-gray-400">
-                                                {word.Sentence.map((sentence: Sentence) => (
-                                                    <li key={sentence.id} className="list-disc">{sentence.category}</li>
+                                                {uniqueCategories?.map((category: Sentence["category"], index: number) => (
+                                                    <li key={index} className="list-disc">{category}</li>
                                                 ))}
                                             </ul>
                                         </div>
