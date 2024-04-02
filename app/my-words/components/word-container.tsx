@@ -14,7 +14,6 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 import SentenceDialogForm from "@/components/forms/sentence-form";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 const WordContainer = ({ word, isSentence, language }: { word: Word, isSentence?: boolean, language: number }) => {
     const uniqueCategories = [
@@ -40,36 +39,32 @@ const WordContainer = ({ word, isSentence, language }: { word: Word, isSentence?
                                 {word.word}
                                 {word?.Sentence?.length ? <span className="text-red-300 relative bottom-2 left-1 text-2xl/[0px] font-bold">.</span> : null}
                             </PopoverTrigger>
-                            <Dialog>
-                                <PopoverContent className="space-y-2 cursor-pointer">
-                                    <DialogTrigger className="md:hidden">
-                                        <div className="flex justify-between items-center">
-                                            <div className="flex items-center gap-2">
-                                                <p>{word.nativeWord}</p>
-                                                <p className="italic tracking-wide text-[13px] text-gray-700">
-                                                    {word.pronunciation ? `[ ${word.pronunciation} ]` : null}
-                                                </p>
-                                            </div>
-                                            <TrashIcon className="cursor-pointer" onClick={() => deleteWord({ id: word.id })} color="red" />
+                            <PopoverContent className="space-y-2 cursor-pointer">
+                                <div className="flex justify-between items-center">
+                                    <div className="flex items-center gap-2">
+                                        <p>{word.nativeWord}</p>
+                                        <p className="italic tracking-wide text-[13px] text-gray-700">
+                                            {word.pronunciation ? `[ ${word.pronunciation} ]` : null}
+                                        </p>
+                                    </div>
+                                    <TrashIcon className="cursor-pointer" onClick={() => deleteWord({ id: word.id })} color="red" />
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <p className="text-[13px] text-gray-400">{word.category}</p>
+                                </div>
+                                {word.Sentence?.length ?
+                                    (
+                                        <div className="flex items-center justify-between border-t border-gray-300 pt-2">
+                                            <p className="text-[13px]">Sentences ({word.Sentence.length})</p>
+                                            <ul className="text-[12px] text-gray-400">
+                                                {uniqueCategories?.map((category: Sentence["category"], index: number) => (
+                                                    <li key={index} className="list-disc">{category}</li>
+                                                ))}
+                                            </ul>
                                         </div>
-                                        <div className="flex items-center justify-between">
-                                            <p className="text-[13px] text-gray-400">{word.category}</p>
-                                        </div>
-                                        {word.Sentence?.length ?
-                                            (
-                                                <div className="flex items-center justify-between border-t border-gray-300 pt-2">
-                                                    <p className="text-[13px]">Sentences ({word.Sentence.length})</p>
-                                                    <ul className="text-[12px] text-gray-400">
-                                                        {uniqueCategories?.map((category: Sentence["category"], index: number) => (
-                                                            <li key={index} className="list-disc">{category}</li>
-                                                        ))}
-                                                    </ul>
-                                                </div>
-                                            ) : null}
-                                    </DialogTrigger>
-                                </PopoverContent>
-                                <DialogContent>HEY</DialogContent>
-                            </Dialog>
+                                    ) : null}
+                            </PopoverContent>
+
                         </Popover>
 
                         <HoverCard key={word.id}>
@@ -80,40 +75,34 @@ const WordContainer = ({ word, isSentence, language }: { word: Word, isSentence?
                                     {word?.Sentence?.length ? <span className="w-fit text-red-300 relative bottom-2 left-1 text-2xl/[0px] font-bold">.</span> : null}
                                 </p>
                             </HoverCardTrigger>
-                            <Dialog>
-                                <HoverCardContent className="space-y-2 hover:bg-slate-50 transition-all duration-300 cursor-pointer">
-                                    <DialogTrigger className="w-full">
-                                        <div className="flex justify-between items-center">
-                                            <div className="flex items-center gap-2">
-                                                <p>{word.nativeWord}</p>
-                                                <p className="italic tracking-wide text-[13px] text-gray-700">
-                                                    {word.pronunciation ? `[ ${word.pronunciation} ]` : null}
-                                                </p>
-                                            </div>
-                                            <TrashIcon className="cursor-pointer" onClick={() => deleteWord({ id: word.id })} color="red" />
+                            <HoverCardContent className="space-y-2 hover:bg-slate-50 transition-all duration-300 cursor-pointer">
+                                <div className="flex justify-between items-center">
+                                    <div className="flex items-center gap-2">
+                                        <p>{word.nativeWord}</p>
+                                        <p className="italic tracking-wide text-[13px] text-gray-700">
+                                            {word.pronunciation ? `[ ${word.pronunciation} ]` : null}
+                                        </p>
+                                    </div>
+                                    <TrashIcon className="cursor-pointer" onClick={() => deleteWord({ id: word.id })} color="red" />
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <p className="text-[13px] text-gray-400">{word.category}</p>
+                                </div>
+                                {word.Sentence?.length ?
+                                    (
+                                        <div className="flex items-center justify-between border-t border-gray-300 pt-2">
+                                            <p className="text-[13px]">Sentences ({word.Sentence.length})</p>
+                                            <ul className="text-[12px] text-gray-400">
+                                                {uniqueCategories?.map((category: Sentence["category"], index: number) => (
+                                                    <li key={index} className="list-disc">{category}</li>
+                                                ))}
+                                            </ul>
                                         </div>
-                                        <div className="flex items-center justify-between">
-                                            <p className="text-[13px] text-gray-400">{word.category}</p>
-                                        </div>
-                                        {word.Sentence?.length ?
-                                            (
-                                                <div className="flex items-center justify-between border-t border-gray-300 pt-2">
-                                                    <p className="text-[13px]">Sentences ({word.Sentence.length})</p>
-                                                    <ul className="text-[12px] text-gray-400">
-                                                        {uniqueCategories?.map((category: Sentence["category"], index: number) => (
-                                                            <li key={index} className="list-disc">{category}</li>
-                                                        ))}
-                                                    </ul>
-                                                </div>
-                                            ) : null}
-                                    </DialogTrigger>
-                                </HoverCardContent>
-                                <DialogContent>HE</DialogContent>
-                            </Dialog>
+                                    ) : null}
+                            </HoverCardContent>
                         </HoverCard>
                     </>
                 )}
-
 
             </motion.div>
         </AnimatePresence>
