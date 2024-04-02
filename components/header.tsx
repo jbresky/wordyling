@@ -6,12 +6,12 @@ const Header = ({ session }: { session?: any }) => {
 
     return (
         <header className="flex m-auto items-center justify-between">
-            <Link href='/' className="text-lg flex items-center sm:text-3xl">
+            <Link href='/' className="text-2xl flex items-center sm:text-3xl">
                 W
                 <GiAbstract013 />
                 RDYLING
             </Link>
-            <ul className="flex items-center gap-2 sm:gap-6 max-sm:text-sm">
+            <ul className="flex items-center gap-2 sm:gap-6">
                 {session ? (
                     <>
                         <Link href='/my-words' className="hover:underline">
