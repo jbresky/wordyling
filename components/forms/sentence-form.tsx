@@ -30,6 +30,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import z from "zod"
 import { Button } from "../ui/button"
+import { Toaster, toast } from "sonner"
 
 const SentenceDialogForm = ({ word, languageId }: { word: Word, languageId: number }) => {
 
@@ -48,13 +49,19 @@ const SentenceDialogForm = ({ word, languageId }: { word: Word, languageId: numb
         <SelectItem value={key} key={key}>{value}</SelectItem>
     ))
 
-    function submitSentence(values: z.infer<typeof sentenceFormSchema>) {
-        createSentence(values)
+    async function submitSentence(values: z.infer<typeof sentenceFormSchema>) {
+        const result = await createSentence(values)
+        if (result?.error) {
+            return toast.error(result.error)
+        }
+
+        toast.success("Sentence created")
         sentenceForm.reset()
     }
 
     return (
         <Dialog>
+            <Toaster />
             <DialogTrigger>
                 <p className="text-center text-sm cursor-pointer w-[90px] py-1 font-medium border-b border-black">
                     {word.word}
